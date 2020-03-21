@@ -10,7 +10,7 @@ timeLimit = 30; % seconds
 
 apriltagSubscriber = rossubscriber('/tag_detections','apriltag_ros/AprilTagDetectionArray');
 
-r = robotics.Rate(40);
+r = robotics.Rate(100);
 reset(r);
 
 apriltagMsg = apriltagSubscriber.LatestMessage;
@@ -31,9 +31,9 @@ ApriltagID = apriltagMsg.Detections.Id;
 % Apriltage size
 ApriltagSize = apriltagMsg.Detections.Size;
 
-dateString = datestr(now,'mmmm_dd_yyyy_HH_MM_SS_FFF')
+dateString = datestr(now,'mmmm_dd_yyyy_HH_MM_SS_FFF');
 
-ApriltagLog = ['/home/zachary/Lunar-Rover-2020/development/data_analysis/Apriltag' '/Apriltag_' dateString '.log'];
+ApriltagLog = ['/home/zachary/Lunar-Rover-2020/development\data_analysis\Apriltag' '/Apriltag_' dateString '.log'];
 
 
 while(1)
@@ -58,10 +58,9 @@ while(1)
     % Apriltage size
     ApriltagSize = apriltagMsg.Detections.Size;
 
-    ApriltagSeq = apriltagMsg.Header.Seq;
     apriltagPose = apriltagMsg.Detections.Pose;
     % Apriltag Position
-    ApriltagPositionX = apriltagPose.Pose.Pose.Position.X;
+    ApriltagPositionX = apriltagPose.Pose.Pose.Position.X
     ApriltagPositionY = apriltagPose.Pose.Pose.Position.Y;
     ApriltagPositionZ = apriltagPose.Pose.Pose.Position.Z;
 
@@ -73,24 +72,22 @@ while(1)
     if (ApriltagTimeLog >= timeLimit)
         return;
     else
-        ApriltagLog
-        [pFile1, message] = fopen(ApriltagLog,'a');
+        pFile = fopen(ApriltagLog, 'a');
     
-%        fprintf(pFile1,'%6.6f,',ApriltagSeq);
-        fprintf(pFile1,'%6.6f,',ApriltagID);
-        fprintf(pFile1,'%6.6f,', ApriltagSize);
-        fprintf(pFile1,'%6.6f,', ApriltagTimeLog);
+        fprintf(pFile,'%d,',ApriltagID);
+        frinttf(pFile,'%6.6f,', ApriltagSize);
+        fprintf(pFile,'%6.6f,', ApriltagTimeLog);
         
-        fprintf(pFile1,'%6.6f,', ApriltagPositionX);
-        fprintf(pFile1,'%6.6f,', ApriltagPositionY);
-        fprintf(pFile1,'%6.6f,', ApriltagPositionZ);
+        fprintf(pFile,'%6.6f,', ApriltagPositionX);
+        fprintf(pFile,'%6.6f,', ApriltagPositionY);
+        fprintf(pFile,'%6.6f,', ApriltagPositionZ);
         
-        fprintf(pFile1,'%6.6f,', ApriltagOrienationX);
-        fprintf(pFile1,'%6.6f,', ApriltagOrienationY);
-        fprintf(pFile1,'%6.6f,', ApriltagOrienationZ);
-        fprintf(pFile1,'%6.6f\n', ApriltagOrienationW);
+        fprintf(pFile,'%6.6f,', ApriltagOrienationX);
+        fprintf(pFile,'%6.6f,', ApriltagOrienationY);
+        fprintf(pFile,'%6.6f,', ApriltagOrienationZ);
+        fprintf(pFile,'%6.6f\n', ApriltagOrienationW);
         
-        fclose(pFile1);
+        fclose(pFile);
     end
     % fixed loop pause
     waitfor(r);
