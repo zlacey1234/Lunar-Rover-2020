@@ -1,0 +1,10 @@
+<launch>
+    <!-- Launches the Realsense T265, Xbox 360 Kinect, and the Apriltags nodes-->
+
+    <include file="$(find realsense2_camera)/launch/rs_t265.launch"/>
+
+    <include file="$(find openni_launch)/launch/openni.launch"/>
+
+    <include file="$(find apriltag_ros)/launch/continuous_detection.launch"/>
+
+</launch>
