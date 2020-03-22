@@ -25,7 +25,7 @@ clear all; close all; clc; format compact;
 
 % intialize ros node
 if(~robotics.ros.internal.Global.isNodeActive)
-    rosinit('192.168.1.2'); % ip of the ROS Master
+    rosinit('192.168.1.3'); % ip of the ROS Master
 end
 
 % Subscribers
