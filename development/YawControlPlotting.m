@@ -6,8 +6,15 @@ clc;
 plotVIO = 1;
 plotDesiredPose = 1;
 plotVelocityCmd = 0;
+%% Comment one of these out
 
-pathToNavigationLogs = 'C:\Users\zlace\OneDrive\Documents\AMAV\Lunar-Rover-2020\development\data_analysis\Navigation';
+% Zachary Lacey Microsoft Surface
+%pathToNavigationLogs = 'C:\Users\zlace\OneDrive\Documents\AMAV\Lunar-Rover-2020\development\data_analysis\Navigation';
+
+%Zachary Lacey Dell Laptop
+pathToNavigationLogs = 'D:\Lunar-Rover-2020\development\data_analysis\Navigation'
+
+%%
 cd(pathToNavigationLogs)
 
 % VIO file SELECT This Only
@@ -72,8 +79,8 @@ end
 
 figure(1)
 hold on
-plot(TimeVIO, rad2deg(DesiredYaw))
-plot(TimeVIO, OrientationPsiVIO)
+plot(TimeVIO, rad2deg(DesiredYaw),'LineWidth', 1)
+plot(TimeVIO, OrientationPsiVIO,'LineWidth', 1)
 title('Proportional Yaw Control Response on the Segway RMP 440 LE');
 xlabel('Time (seconds)');
 ylabel('Yaw (Degrees)');
@@ -84,13 +91,35 @@ hold off
 
 figure(2)
 subplot(2,1,1)
-plot(TimeVIO, DesiredPositionX);
-hold on
-plot(TimeVIO, PositionXVIO);
+plot(TimeVIO, PositionXVIO,'LineWidth', 1);
+title('Estimated Position X vs Time of the Intel Realsense T265');
+xlabel('Time (seconds)');
+ylabel('Position X (meters)');
+legend('Intel Realsense Estimation')
+grid on 
+set(gca, 'FontSize',24);
 hold off
 
 subplot(2,1,2)
-plot(TimeVIO, DesiredPositionY);
-hold on
-plot(TimeVIO, PositionYVIO);
+plot(TimeVIO, DesiredPositionY,'LineWidth', 1);
+plot(TimeVIO, PositionYVIO,'LineWidth', 1);
+title('Estimated Position Y vs Time of the Intel Realsense T265');
+xlabel('Time (seconds)');
+ylabel('Position Y (meters)');
+legend('Intel Realsense Estimation')
+grid on 
+set(gca, 'FontSize',24);
+hold off
+
+figure(3)
+% Needed to account for the roations since this is in the Realsense Global
+% Frame which has a 90 Degree offset from the ENU Global Frame
+plot(-PositionYVIO, PositionXVIO,'LineWidth', 1);
+title('Estimated 2D Position of the Intel Realsense T265');
+xlabel('Position Y (meters)');
+ylabel('Position X (meters)');
+legend('Intel Realsense Estimation')
+grid on 
+axis equal
+set(gca, 'FontSize',24);
 hold off

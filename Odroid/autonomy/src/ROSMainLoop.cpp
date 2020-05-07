@@ -1,3 +1,18 @@
+/*
+ File name; ROSMainLoop.cpp
+
+ Purpose:
+ The ROSMainLoop.cpp is the main code that utilitzes ROS to subscribe the sensor data to publish the 
+ commanded velocity that actuates the motors of the Segway RMP 440 LE. This main loop also contains 
+ the very basic (prototype) logic that we used to experiment funtionality for the yaw control of the 
+ Segway RMP. In addition, this main loop also includes how we tested AprilTag-based yaw control. 
+ Waypoint control and yaw control were proportional controllers and this code was incomplete due to 
+ the COVID-19 (which restricted us from continuing our lab testing). 
+
+ Author: Zachary G. Lacey
+ e-mail: zlacey@umd.edu
+ Date  : April 25, 2020
+*/
 #include <ros/ros.h>
 #include <iostream>
 #include <vector>
